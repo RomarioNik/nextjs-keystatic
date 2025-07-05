@@ -1,13 +1,18 @@
 import { createReader } from "@keystatic/core/reader";
 import React from "react";
 import Markdoc from "@markdoc/markdoc";
-
 import keystaticConfig from "../../../keystatic.config";
+
+type PostProps = {
+  params: {
+    slug: string;
+  };
+};
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
-export default async function Post({ params }: { params: { slug: string } }) {
-  const post = await reader.collections.posts.read(params.slug);
+export default async function Post(props: Promise<PostProps>) {
+  const post = await reader.collections.posts.read((await props).params.slug);
 
   if (!post) {
     return <div>No Post Found</div>;
