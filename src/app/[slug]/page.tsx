@@ -3,12 +3,12 @@ import React from "react";
 import Markdoc from "@markdoc/markdoc";
 import keystaticConfig from "../../../keystatic.config";
 
-type PostProps = Promise<{ params: { slug: string } }>;
+type PostProps = Promise<{ slug: string }>;
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
-export default async function Post(props: PostProps) {
-  const slug = (await props).params.slug;
+export default async function Post({ params }: PostProps) {
+  const { slug } = await params;
   const post = await reader.collections.posts.read(slug);
 
   if (!post) {
