@@ -11,8 +11,8 @@ type PostProps = {
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
-export default async function Post(props: Promise<PostProps>) {
-  const post = await reader.collections.posts.read((await props).params.slug);
+export default async function Post({ params }: PostProps) {
+  const post = await reader.collections.posts.read(params.slug);
 
   if (!post) {
     return <div>No Post Found</div>;
