@@ -14,6 +14,14 @@ export async function generateStaticParams() {
   }));
 }
 
+// export async function generateStaticParams() {
+//   const slugs = await reader.collections.posts.list();
+
+//   return slugs.map((slug) => ({
+//     slug,
+//   }));
+// }
+
 export default async function Post(props: {
   params: Promise<{ slug: string }>;
 }) {
