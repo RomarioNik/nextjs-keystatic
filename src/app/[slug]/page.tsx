@@ -6,22 +6,6 @@ import Link from "next/link";
 
 const reader = createReader(process.cwd(), keystaticConfig);
 
-export async function generateStaticParams() {
-  const posts = await reader.collections.posts.all();
-
-  return posts.map((post) => ({
-    slug: post.slug,
-  }));
-}
-
-// export async function generateStaticParams() {
-//   const slugs = await reader.collections.posts.list();
-
-//   return slugs.map((slug) => ({
-//     slug,
-//   }));
-// }
-
 export default async function Post(props: {
   params: Promise<{ slug: string }>;
 }) {
@@ -53,4 +37,12 @@ export default async function Post(props: {
       </div>
     </>
   );
+}
+
+export async function generateStaticParams() {
+  const slugs = await reader.collections.posts.list();
+
+  return slugs.map((slug) => ({
+    slug,
+  }));
 }
