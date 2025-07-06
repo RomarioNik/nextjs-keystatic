@@ -5,7 +5,8 @@ export const dynamic = "force-static";
 export const dynamicParams = false;
 
 export async function generateStaticParams() {
-  return [];
+  // console.log("params :", await params);
+  return [{}];
 }
 
 export const { POST, GET } = makeRouteHandler({
