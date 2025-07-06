@@ -2,8 +2,17 @@ import { createReader } from "@keystatic/core/reader";
 import React from "react";
 import Markdoc from "@markdoc/markdoc";
 import keystaticConfig from "../../../keystatic.config";
+import Link from "next/link";
 
 const reader = createReader(process.cwd(), keystaticConfig);
+
+export async function generateStaticParams() {
+  const posts = await reader.collections.posts.all();
+
+  return posts.map((post) => ({
+    slug: post.slug,
+  }));
+}
 
 export default async function Post(props: {
   params: Promise<{ slug: string }>;
@@ -32,7 +41,7 @@ export default async function Post(props: {
         <h1>{post.title}</h1>
         {Markdoc.renderers.react(renderable, React)}
         <hr />
-        <a href={`/`}>Back to Posts</a>
+        <Link href="/">Back to Posts</Link>
       </div>
     </>
   );
